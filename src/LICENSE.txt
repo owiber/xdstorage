@@ -1,0 +1,15 @@
+/*!
+xdstorage - v0.1.0 - 2013-04-21
+https://github.com/owiber/xdstorage
+Copyright (c) 2013 Oliver Wong; Licensed MIT
+
+easyXDM
+MIT
+(c) 2009-2011, Øyvind Sean Kinsey, oyvind@kinsey.no.
+
+store.js
+(c) 2010-2012 Marcus Westin
+
+CryptoJS
+(c) 2009-2012 by Jeff Mott. All rights reserved.
+*/

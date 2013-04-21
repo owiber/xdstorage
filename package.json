@@ -1,0 +1,30 @@
+{
+  "name": "xdstorage",
+  "description": "Cross Domain localStorage",
+  "version": "0.1.0",
+  "homepage": "https://github.com/owiber/xdstorage",
+  "author": {
+    "name": "Oliver Wong",
+    "email": "oliver@owiber.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/owiber/xdstorage.git"
+  },
+  "bugs": {
+    "url": "https://github.com/owiber/xdstorage/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/owiber/xdstorage/blob/master/LICENSE-MIT"
+    }
+  ],
+  "keywords": [],
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-uglify": "~0.2.0",
+    "grunt-contrib-jshint": "~0.4.3",
+    "grunt-contrib-concat": "~0.2.0"
+  }
+}
