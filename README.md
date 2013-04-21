@@ -1,4 +1,4 @@
-3rd-party-localstorage
-======================
+XDStorage
+=========
 
-3rd party localStorage
+Cross Domain localStorage
