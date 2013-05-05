@@ -1,4 +1,4 @@
-require(
+define(
 ['lib/lodash.custom', 'lib/aes', 'lib/deferred', 'lib/json2', 'lib/store', 'lib/cookie', 'lib/easyxdm', 'lib/uid'],
 function (_, CryptoJS, Dfd, JSON, Store, Cookie, easyXDM, UID) {
 
@@ -21,6 +21,15 @@ var XDStorage = window.XDStorage = function (config) {
   if ( !(this instanceof arguments.callee) ) {
     return new XDStorage(config);
   }
+
+  if (!config || !config.cookieName || !config.storage) {
+    throw new Error('XDStorage: required config options not specified.');
+  }
+
+  if (cache[config.cookieName]) {
+    throw new Error('XDStorage: instance already created for cookieName, ' + config.cookieName + '.');
+  }
+
   // Shallow copy
   this.config = _.extend({}, config || {});
   this.cookieName = this.config.cookieName;
@@ -42,9 +51,13 @@ function _getHelper (key, fn) {
   }
 }
 
-_(XDStorage.prototype).extend({
+_.extend(XDStorage.prototype, {
   id : function () {
     return this.sessionCookie;
+  },
+  destroy : function () {
+    this.sessionCookie = null;
+    Cookie.erase(this.cookieName);
   },
   setup : function () {
     var dfd = Deferred();
@@ -76,20 +89,23 @@ _(XDStorage.prototype).extend({
   },
   set : function (key, data, fn) {
     var self = this;
-    fn = fn || noop;
+    var resultDfd = Deferred();
+    resultDfd.done(fn || noop);
     if (!self.sessionCookie) {
       self.create();
     }
     self.setup().done(function (rpc) {
       rpc.set(self.cookieName + '_' + key, self.sessionCookie, data, function (result) {
-        cache[self.cookieName][key] = Deferred().resolve(result);
-        fn(result);
+        cache[self.cookieName][key] = resultDfd.promise();
+        resultDfd.resolve(result);
       });
     });
+    return resultDfd.promise();
   },
   get : function (key, fn) {
     var self = this;
-    fn = fn || noop;
+    var resultDfd = Deferred();
+    resultDfd.done(fn || noop);
     if (self.sessionCookie) {
       if (!cache[self.cookieName][key]) {
         cache[self.cookieName][key] = cache[self.cookieName][key] || Deferred();
@@ -97,22 +113,25 @@ _(XDStorage.prototype).extend({
           cache[self.cookieName][key].resolve(data);
         });
       }
-      cache[self.cookieName][key].done(fn);
+      cache[self.cookieName][key].done(resultDfd.resolve);
     } else {
-      fn();
+      resultDfd.resolve();
     }
+    return resultDfd.promise();
   },
   remove : function (key, fn) {
     var self = this;
-    fn = fn || noop;
+    var resultDfd = Deferred();
+    resultDfd.done(fn || noop);
     if (self.sessionCookie) {
       delete cache[self.cookieName][key];
       self.setup().done(function (rpc) {
-        rpc.remove(self.cookieName + '_' + key, fn);
+        rpc.remove(self.cookieName + '_' + key, resultDfd.resolve);
       });
     } else {
-      fn();
+      resultDfd.resolve();
     }
+    return resultDfd.promise();
   }
 });
 

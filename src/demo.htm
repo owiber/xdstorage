@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+  <title></title>
+</head>
+<body>
+  <script src="xdstorage.min.js"></script>
+  <script>
+  (function () {
+  	var xds = new XDStorage({
+  		cookieName : 'myCookie',
+  		storage : 'http://otherhost.example.com:8000/xdstorage.htm'
+  	});
+  	console.log('Existing session: ', xds.id());
+    xds.set('randomNumberHello', Math.random()).done(function () {
+      console.log('Using session: ', xds.id());
+      console.log('Wrote a random number to key: randomNumberHello');
+      xds.get('randomNumberHello').done(function (d) {
+        console.log('Read from key randomNumberHello: ', d);
+      });
+    });
+
+  }());
+  </script>
+</body>
+</html>

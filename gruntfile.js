@@ -13,6 +13,10 @@ module.exports = function(grunt) {
       htm: {
         src: ['src/<%= pkg.name %>.htm'],
         dest: 'dist/<%= pkg.name %>.htm'
+      },
+      demo: {
+        src: ['src/demo.htm'],
+        dest: 'dist/demo.htm'
       }
     },
     uglify: {
@@ -37,7 +41,10 @@ module.exports = function(grunt) {
           paths: {
             lib: "../lib"
           },
-          wrap: true
+          wrap: {
+              start: "(function() {",
+              end: "require('main'); }());"
+          }
         }
       }
     },
@@ -56,6 +63,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
 
-  grunt.registerTask('default', ['jshint', 'clean', 'requirejs', 'uglify', 'concat']);
+  grunt.registerTask('default', ['jshint', 'requirejs', 'uglify', 'concat']);
 
 };
