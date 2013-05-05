@@ -5,15 +5,10 @@ module.exports = function(grunt) {
     concat: {
       js: {
         src: [
-          '<banner:meta.banner>',
           'src/LICENSE.txt',
-          'src/intro.js',
-          'lib/*.js',
-          'src/setup.js',
-          'src/client.js',
-          'src/outro.js'
+          'dist/<%= pkg.name %>.min.js'
         ],
-        dest: 'dist/<%= pkg.name %>.js'
+        dest: 'dist/<%= pkg.name %>.min.js'
       },
       htm: {
         src: ['src/<%= pkg.name %>.htm'],
@@ -22,32 +17,45 @@ module.exports = function(grunt) {
     },
     uglify: {
       options: {
-        preserveComments: 'some',
+        preserveComments: 'none',
         report: 'min'
       },
       dist: {
         files: {
-          'dist/<%= pkg.name %>.min.js': ['<%= concat.js.dest %>']
+          'dist/<%= pkg.name %>.min.js': ['<%= requirejs.compile.options.out %>']
+        }
+      }
+    },
+    requirejs: {
+      compile: {
+        options: {
+          baseUrl: "./src",
+          out: "dist/xdstorage.js",
+          name: "lib/almond",
+          include: ['main'],
+          optimize: 'none',
+          paths: {
+            lib: "../lib"
+          },
+          wrap: true
         }
       }
     },
     jshint: {
-      files: ['gruntfile.js', 'src/setup.js', 'src/client.js'],
+      files: ['gruntfile.js', 'src/*.js'],
       options: {
-        globals: {
-          XDStorage: true,
-          store: true,
-          CryptoJS: true,
-          easyXDM: true
-        }
+        globals: {}
       }
-    }
+    },
+    clean: ['dist']
   });
 
+  grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-requirejs');
 
-  grunt.registerTask('default', ['jshint', 'concat', 'uglify']);
+  grunt.registerTask('default', ['jshint', 'clean', 'requirejs', 'uglify', 'concat']);
 
 };

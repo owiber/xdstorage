@@ -12,4 +12,15 @@ store.js
 
 CryptoJS
 (c) 2009-2012 by Jeff Mott. All rights reserved.
+
+underscore.deferred
+(c) 2012 Sam Breed
+
+almond 0.2.5
+(c) 2011-2012, The Dojo Foundation All Rights Reserved.
+
+lodash
+(c) 2012 John-David Dalton
+Based on Underscore.js 1.4.3
+(c) 2009-2012 Jeremy Ashkenas, DocumentCloud Inc.
 */
