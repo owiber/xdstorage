@@ -37,9 +37,12 @@ Include ```xdstorage.min.js``` on the page you want to use XDStorage.
 // Initialize
 var xds = new XDStorage({
   cookieName : 'myCookie',
-  cookieDomain : '.example.com', // Set this if you need cross-subdomain support. Remember the leading dot.
-  swf : 'https://path/to/easyxdm.swf', // If you need to support IE6/IE7. Must match the location in xdstorage.htm
-  storage : 'https://storage.example.com/xdstorage.htm' // Needs to be HTTPS if you want access to the data cross-protocol
+  // Set this if you need cross-subdomain support. Remember the leading dot.
+  cookieDomain : '.example.com',
+  // If you need to support IE6/IE7. Must match the location in xdstorage.htm.
+  swf : 'https://path/to/easyxdm.swf',
+  // Needs to be HTTPS if you want access to the data cross-protocol.
+  storage : 'https://storage.example.com/xdstorage.htm'
 });
 
 // Do we already have a session?
