@@ -20,15 +20,16 @@ Setup
 1. Place ```dist/xdstorage.htm``` on the domain you want to store data on (this is where localStorage will save to).
 2. Make sure the path to ```xdstorage.min.js``` in ```xdstorage.htm``` is correct.
 3. If you need to support IE6/IE7, you'll also need to host easyxdm.swf and configure it in ```xdstorage.htm```:
-```
+
+```javascript
 XDStorage.storage({
   swf : 'https://path/to/easyxdm.swf'
 });
 ```
-4. Include ```xdstorage.min.js``` on the page you want to use XDStorage then follow the Usage instructions.
 
 Usage
 -----
+Include ```xdstorage.min.js``` on the page you want to use XDStorage.
 
 ```javascript
 // Initialize
