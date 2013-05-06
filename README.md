@@ -15,6 +15,18 @@ XDStorage solves these issues by:
  * On this page, data is stored using [Store.js](https://github.com/marcuswestin/store.js/) (localStorage + equivalents)
  * Data is encrypted with the secret stored in the session cookie (so is no longer accessible once the session cookie is gone)
 
+Setup
+-----
+1. Place ```dist/xdstorage.htm``` on the domain you want to store data on (this is where localStorage will save to).
+2. Make sure the path to ```xdstorage.min.js``` in ```xdstorage.htm``` is correct.
+3. If you need to support IE6/IE7, you'll also need to host easyxdm.swf and configure it in ```xdstorage.htm```:
+```
+XDStorage.storage({
+  swf : 'https://path/to/easyxdm.swf'
+});
+```
+4. Include ```xdstorage.min.js``` on the page you want to use XDStorage then follow the Usage instructions.
+
 Usage
 -----
 
@@ -22,7 +34,9 @@ Usage
 // Initialize
 var xds = new XDStorage({
   cookieName : 'myCookie',
-	storage : 'https://otherhost.example.com/xdstorage.htm'
+  // cookieDomain : '.example.com', // Set this if you need cross-subdomain support. Remember the leading dot.
+  /// swf : 'https://path/to/easyxdm.swf', // If you need to support IE6/IE7. Must match the location in xdstorage.htm
+  storage : 'https://storage.example.com/xdstorage.htm' // Needs to be HTTPS if you want access to the data cross-protocol
 });
 
 // Do we already have a session?
