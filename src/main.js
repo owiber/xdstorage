@@ -13,7 +13,7 @@ var cache = {};
 // Config:
 // {
 //  cookieName : 'myCookie',
-//  cookieDomain : 'example.com',
+//  cookieDomain : '.example.com',
 //  swf : 'https://path/to/easyxdm.swf',
 //  storage : 'https://path/to/storage.htm'
 // }
