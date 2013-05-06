@@ -1,6 +1,8 @@
 XDStorage - Cross Domain localStorage
 =====================================
 
+WORK IN PROGRESS...
+
 Intro
 -----
 
